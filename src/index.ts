@@ -29,6 +29,26 @@ async function main() {
       sse: {} as Record<string, SSEServerTransport>
     };
 
+    // Server information endpoint
+    app.get('/', (req, res) => {
+      const serverInfo = {
+        name: 'PerfexCRM MCP Server',
+        version: '1.0.0',
+        description: 'MCP Server for PerfexCRM API integration with N8N',
+        endpoints: {
+          sse: '/sse',
+          messages: '/messages',
+          tools: '/tools'
+        },
+        documentation: {
+          sse: 'Endpoint for establishing SSE connection with N8N',
+          messages: 'Endpoint for handling messages from N8N',
+          tools: 'Endpoint for listing available tools'
+        }
+      };
+      res.json(serverInfo);
+    });
+
     // List available tools
     app.get('/tools', (req, res) => {
       const tools = [
@@ -147,6 +167,8 @@ async function main() {
     const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
     app.listen(port, () => {
       logger.info(`MCP Server started on port ${port}`);
+      logger.info(`Server information available at: http://localhost:${port}`);
+      logger.info(`Available tools at: http://localhost:${port}/tools`);
     });
   } catch (error) {
     logger.error('Failed to start MCP Server:', error);

@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { AuthService } from './auth.service';
-import { logger } from '../utils/logger';
+import { AuthService } from './auth.service.js';
+import { logger } from '../utils/logger.js';
 
 export interface Customer {
   id?: number;

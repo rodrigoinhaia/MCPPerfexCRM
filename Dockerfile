@@ -16,6 +16,9 @@ COPY . .
 # Build TypeScript
 RUN npm run build
 
+# Verify build output
+RUN ls -la dist/services/
+
 # Expose port
 EXPOSE 3000
 
